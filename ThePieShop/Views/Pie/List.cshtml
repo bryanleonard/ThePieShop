@@ -1,0 +1,97 @@
+﻿@*
+    // Version 1, without AJAX
+    @model pieshop.ViewModels.PiesListViewModel
+    @{
+        ViewData["Title"] = "Our Pies";
+    }
+
+    <h2>@Model.CurrentCategory</h2>
+
+
+    @foreach (var pie in Model.Pies)
+    {
+        @Html.Partial("PieOverviewSummary", pie);
+    }
+*@
+@{
+    ViewData["Title"] = "Our Pies";
+}
+
+@model ThePieShop.ViewModels.PiesListViewModel
+<h2>@Model.CurrentCategory</h2>
+@foreach (var pie in Model.Pies)
+{
+    @Html.Partial("PieOverviewSummary", pie);
+}
+
+
+
+
+@*<div id="pieDiv"></div>
+
+
+@section scripts {
+    <script>
+
+        var $win = $(window);
+
+        function LoadMorePies() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/PieData',
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data == null) {
+                        alert("No data found");
+                        return;
+                    }
+
+                    CreateHTML(data);
+                },
+                fail: function() {
+                    alert("Whoops!");
+                },
+                error: function(data) {
+                    alert("Error: ", data);
+                }
+            });
+        };
+
+        function CreateHTML(data) {
+            $.each(data, function(index, pie) {
+                var PieSummaryString = '<div class="col-sm-4 col-lg-4 col-md-4"> ' +
+                    '  <div class="thumbnail">' +
+                    '     <img src="' + pie.imageThumbnailUrl + '" alt="">' +
+                    '      <div class="caption">' +
+                    '         <h3 class="pull-right">' + pie.price + '</h3>' +
+                    '         <h3>' +
+                    '             <a href=/Pie/Details/' + pie.pieId + '>' + pie.name + '</a>' +
+                    '         </h3>' +
+                    '         <p>' + pie.shortDescription + '</p>' +
+                    '    </div>' +
+                    '    <div class="addToCart">' +
+                    '        <p class="button">' +
+                    '             <a class="btn btn-primary" href=/ShoppingCart/AddToShoppingCart?pieId=' + pie.pieId + '>Add to cart</a>' +
+                    '         </p>' +
+                    '     </div>' +
+                    '  </div>' +
+                    '</div>';
+
+                $('#pieDiv').append(PieSummaryString);
+            });
+        };
+
+        //$(function() {
+
+        //});
+
+        LoadMorePies();
+
+        $win.scroll(function() {
+            if ($win.scrollTop() == $(document).height() - $win.height()) {
+                LoadMorePies();
+            }
+        });
+    </script>
+}*@
+

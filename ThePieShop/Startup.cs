@@ -26,6 +26,16 @@ namespace ThePieShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Version 1 - using mock data
+            //services.AddTransient<ICategoryRepository, MockCategoryRepository>();
+            //services.AddTransient<IPieRepository, MockPieRepository>();
+
+            //Version 2 - calling the DB
+            //https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/working-with-sql?tabs=aspnetcore2x
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IPieRepository, PieRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -37,6 +47,12 @@ namespace ThePieShop
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddRouting(options => options.LowercaseUrls = true); //lowercase URLs, FTW
+
+            // creates an object associated with a request (a shopping cart per user)
+            // Creates the shopping cart when user visits.
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +75,11 @@ namespace ThePieShop
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "categoryfilter",
+                    template: "Pie/{action}/{category?}",
+                    defaults: new { Controller = "Pie", action = "List" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
