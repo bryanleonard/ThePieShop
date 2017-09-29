@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ThePieShop.Data;
@@ -32,16 +33,22 @@ namespace ThePieShop
 
             //Version 2 - calling the DB
             //https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/working-with-sql?tabs=aspnetcore2x
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<IPieRepository, PieRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IPieRepository, PieRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // Creates an object associated with a request (a shopping cart per user)
+            // Creates the shopping cart when user visits.
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -62,10 +69,7 @@ namespace ThePieShop
             });
 
             services.AddRouting(options => options.LowercaseUrls = true); //lowercase URLs, FTW
-
-            // Creates an object associated with a request (a shopping cart per user)
-            // Creates the shopping cart when user visits.
-            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

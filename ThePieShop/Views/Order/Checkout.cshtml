@@ -1,5 +1,10 @@
 ﻿@model Order
 
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
 <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
     <h4 style="margin-bottom: 2rem">You're just one step away from your delicious pies.</h4>
     <div asp-validation-summary="All" class="text-danger" style="display: none; margin-bottom: 3rem;">
