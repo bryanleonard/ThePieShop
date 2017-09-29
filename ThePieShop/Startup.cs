@@ -48,9 +48,22 @@ namespace ThePieShop
 
             services.AddMvc();
 
+            // Configure ability to work with sessions
+            services.AddMemoryCache();
+
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddRouting(options => options.LowercaseUrls = true); //lowercase URLs, FTW
 
-            // creates an object associated with a request (a shopping cart per user)
+            // Creates an object associated with a request (a shopping cart per user)
             // Creates the shopping cart when user visits.
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
         }
@@ -72,6 +85,8 @@ namespace ThePieShop
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

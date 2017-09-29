@@ -28,20 +28,20 @@ namespace ThePieShop.Models
         public static ShoppingCart GetCart(IServiceProvider services)
         {
             // gives access to the context and in turn to the session
-            //ISession session = services.GetRequiredService<IHttpContextAccessor>()?
-            //    .HttpContext.Session;
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?
+                .HttpContext.Session;
 
-            //// get access to AppDbContext session
+            // get access to AppDbContext session
             var context = services.GetService<ApplicationDbContext>();
 
-            //// if we don't have a cartId, create one
-            //string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+            // if we don't have a cartId, create one
+            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
 
-            //session.SetString("CartId", cartId);
+            session.SetString("CartId", cartId);
 
             return new ShoppingCart(context)
             {
-                //ShoppingCartId = cartId
+                ShoppingCartId = cartId
             };
 
         }
