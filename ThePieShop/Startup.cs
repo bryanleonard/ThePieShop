@@ -83,7 +83,11 @@ namespace ThePieShop
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/AppException");
+                // Can use 
+                // throw new Exception("Error");
+                // In a class (like the controller) to trip things up.
             }
 
             app.UseStaticFiles();

@@ -31,7 +31,7 @@ namespace ThePieShop.Controllers
             //piesListViewModel.Pies = _pieRepository.Pies;
             //piesListViewModel.CurrentCategory = "Sweet cuppin' cakes!";
             //return View(piesListViewModel);
-
+            //throw new Exception("Error");
             //version 3
             IEnumerable<Pie> pies;
             string currentCategory = string.Empty;
