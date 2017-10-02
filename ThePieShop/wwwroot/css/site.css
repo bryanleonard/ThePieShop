@@ -117,16 +117,40 @@ navbar .navbar-inverse .navbar-toggle {
     font-weight: 600;
 }
 
+.btn-link {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
 .thumbnail img {
     max-height: none;
 }
 
 .table-striped > tbody > tr:nth-of-type(even) {
-    background-color: rgba(0,0,0, .075); /* #f9f9f9; */
+    background-color: rgba(255,255,255 .075); /* #f9f9f9; */
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: rgba(0,0,0, .025); /* #f9f9f9; */
+    background-color: rgba(0,0,0, .075); /* #f9f9f9; */
+}
+
+.table-shoppingcart th,
+.table-shoppingcart > tfoot > tr > td {
+    background: rgba(249, 246, 243, 1.000);
+}
+
+.table-shoppingcart,
+.table-shoppingcart > tbody > tr > td,
+.table-shoppingcart > tfoot > tr > td,
+.table-bordered > thead > tr > th, 
+.table-bordered > tbody > tr > th {
+    border-color: rgba(155, 112, 56, .35);
+}
+
+.table-bordered > thead > tr > th, 
+.table-bordered > thead > tr > td {
+    border-bottom-width: 1px;
 }
 
 @media (min-width: 768px) {
