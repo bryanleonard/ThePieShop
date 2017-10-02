@@ -103,14 +103,18 @@ navbar .navbar-inverse .navbar-toggle {
     margin-left: auto;
 }
 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default,
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
     background-color: #fcaeae !important;
     border-color: #fba1a1 !important;
+    color: #fff;
 }
 
 .btn {
     background-color: #fcaeae !important;
     border-color: #fba1a1 !important;
+    color: #fff;
+    font-weight: 600;
 }
 
 .thumbnail img {

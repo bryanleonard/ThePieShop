@@ -1,20 +1,19 @@
 ﻿@model Order
 
-
 @{
     ViewData["Title"] = "Checkout";
 }
 
 <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
     <h4 style="margin-bottom: 2rem">You're just one step away from your delicious pies.</h4>
-    <div asp-validation-summary="All" class="text-danger" style="display: none; margin-bottom: 3rem;">
-        <h4>Whoa, you messed some stuff up.</h4>
+    
+    <div asp-validation-summary="All" class="text-danger" style="margin-bottom: 3rem;">
     </div>
 
     <div class="form-group">
         <label asp-for="LastName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="LastName" class="form-control" />
+            <input asp-for="LastName" class="form-control" value="Smith" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
@@ -22,7 +21,7 @@
     <div class="form-group">
         <label asp-for="FirstName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="FirstName" class="form-control" />
+            <input asp-for="FirstName" class="form-control" value="Petey" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
@@ -30,7 +29,7 @@
     <div class="form-group">
         <label asp-for="AddressLine1" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="AddressLine1" class="form-control" />
+            <input asp-for="AddressLine1" class="form-control" value="123 Main St" />
             <span asp-validation-for="AddressLine1" class="text-danger"></span>
         </div>
     </div>
@@ -38,7 +37,7 @@
     <div class="form-group">
         <label asp-for="AddressLine2" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="AddressLine2" class="form-control" />
+            <input asp-for="AddressLine2" class="form-control" value=""/>
             <span asp-validation-for="AddressLine2" class="text-danger"></span>
         </div>
     </div>
@@ -46,7 +45,7 @@
     <div class="form-group">
         <label asp-for="ZipCode" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="ZipCode" class="form-control" />
+            <input asp-for="ZipCode" class="form-control" value="44335" />
             <span asp-validation-for="ZipCode" class="text-danger"></span>
         </div>
     </div>
@@ -54,7 +53,7 @@
     <div class="form-group">
         <label asp-for="City" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="City" class="form-control" />
+            <input asp-for="City" class="form-control" value="Akron" />
             <span asp-validation-for="City" class="text-danger"></span>
         </div>
     </div>
@@ -62,7 +61,7 @@
     <div class="form-group">
         <label asp-for="State" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="State" class="form-control" />
+            <input asp-for="State" class="form-control" value="OH" />
             <span asp-validation-for="State" class="text-danger"></span>
         </div>
     </div>
@@ -70,7 +69,7 @@
     <div class="form-group">
         <label asp-for="Country" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="Country" class="form-control" />
+            <input asp-for="Country" class="form-control" value="United States of Korea" />
             <span asp-validation-for="Country" class="text-danger"></span>
         </div>
     </div>
@@ -78,7 +77,7 @@
     <div class="form-group">
         <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="PhoneNumber" class="form-control" />
+            <input asp-for="PhoneNumber" class="form-control" value="330-444-5555" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
     </div>
@@ -86,7 +85,7 @@
     <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="Email" class="form-control" />
+            <input asp-for="Email" class="form-control" value="info@name.com" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
