@@ -144,15 +144,21 @@ navbar .navbar-inverse .navbar-toggle {
     background-color: rgba(0,0,0, .075); /* #f9f9f9; */
 }
 
+.table-fancy th,
+.table-fancy > tfoot > tr > td,
 .table-shoppingcart th,
 .table-shoppingcart > tfoot > tr > td {
     background: rgba(249, 246, 243, 1.000);
 }
 
+
+.table-fancy,
+.table-fancy > tbody > tr > td,
+.table-fancy > tfoot > tr > td, 
 .table-shoppingcart,
 .table-shoppingcart > tbody > tr > td,
 .table-shoppingcart > tfoot > tr > td,
-.table-bordered > thead > tr > th, 
+.table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th {
     border-color: rgba(155, 112, 56, .35);
 }

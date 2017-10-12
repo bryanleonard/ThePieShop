@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BethanysPieShop.ViewModels
+namespace ThePieShop.ViewModels
 {
     public class AddUserViewModel
     {
