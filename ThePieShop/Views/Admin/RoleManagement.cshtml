@@ -2,6 +2,7 @@
 @model IEnumerable<IdentityRole>
 
 <h2>Role management</h2>
+<table class="table table-condensed table-bordered">
 
 @if (!Model.Any())
 {
@@ -9,12 +10,12 @@
 }
 else
 {
-    <table class="table table-condensed table-bordered">
-        <tr>
-            <th>Role ID</th>
-            <th>Role name</th>
-            <th>#Users</th>
-        </tr>
+
+    <tr>
+        <th>Role ID</th>
+        <th>Role name</th>
+        <th>#Users</th>
+    </tr>
         @foreach (var role in Model)
         {
             <tr>
@@ -30,8 +31,8 @@ else
                 </td>
             </tr>
         }
-    </table>
 }
+</table>
 <p>
     <a class="btn btn-primary" asp-action="AddNewRole">Add new role</a>
 </p>

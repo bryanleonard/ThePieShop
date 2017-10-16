@@ -71,29 +71,39 @@ namespace ThePieShop.Controllers
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
+            {
                 return RedirectToAction("UserManagement", _userManager.Users);
+            }
 
-            return View(user);
+            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country };
+
+            return View(vm);
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(string id, string UserName, string Email)
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
 
             if (user != null)
             {
-                user.Email = Email;
-                user.UserName = UserName;
+                user.Email = editUserViewModel.Email;
+                user.UserName = editUserViewModel.UserName;
+                user.Birthdate = editUserViewModel.Birthdate;
+                user.City = editUserViewModel.City;
+                user.Country = editUserViewModel.Country;
 
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
+                {
                     return RedirectToAction("UserManagement", _userManager.Users);
+                }
 
                 ModelState.AddModelError("", "User not updated, something went wrong.");
 
-                return View(user);
+                return View(editUserViewModel);
             }
 
             return RedirectToAction("UserManagement", _userManager.Users);
@@ -108,9 +118,13 @@ namespace ThePieShop.Controllers
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
+                {
                     return RedirectToAction("UserManagement");
+                }
                 else
+                {
                     ModelState.AddModelError("", "Something went wrong while deleting this user.");
+                }
             }
             else
             {
@@ -123,7 +137,7 @@ namespace ThePieShop.Controllers
 
 
 
-        ////Role mananagement
+        //Role management
         public IActionResult RoleManagement()
         {
             var roles = _roleManager.Roles;
@@ -135,10 +149,8 @@ namespace ThePieShop.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewRole(AddRoleViewModel addRoleViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(addRoleViewModel);
-            }
+
+            if (!ModelState.IsValid) return View(addRoleViewModel);
 
             var role = new IdentityRole
             {
@@ -152,24 +164,19 @@ namespace ThePieShop.Controllers
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
             }
 
-            foreach(IdentityError error in result.Errors)
+            foreach (IdentityError error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
-
             return View(addRoleViewModel);
         }
 
-
-        
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
 
-            if(role == null)
-            {
+            if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
-            }
 
             var editRoleViewModel = new EditRoleViewModel
             {
@@ -178,36 +185,31 @@ namespace ThePieShop.Controllers
                 Users = new List<string>()
             };
 
-            foreach(var user in _userManager.Users)
-            {
-                if(await _userManager.IsInRoleAsync(user, role.Name))
-                {
-                    editRoleViewModel.Users.Add(user.UserName);
-                }
 
+            foreach (var user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                    editRoleViewModel.Users.Add(user.UserName);
             }
 
             return View(editRoleViewModel);
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel editRoleViewModel)
         {
             var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id);
 
-            if(role != null)
+            if (role != null)
             {
                 role.Name = editRoleViewModel.RoleName;
+
                 var result = await _roleManager.UpdateAsync(role);
 
                 if (result.Succeeded)
-                {
-                    RedirectToAction("RoleManagement", _roleManager.Roles);
-                }
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
 
-                ModelState.AddModelError("", "Role not udpated, something went haywire.");
+                ModelState.AddModelError("", "Role not updated, something went wrong.");
 
                 return View(editRoleViewModel);
             }
@@ -215,42 +217,36 @@ namespace ThePieShop.Controllers
             return RedirectToAction("RoleManagement", _roleManager.Roles);
         }
 
-
-
-
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
             IdentityRole role = await _roleManager.FindByIdAsync(id);
-
-            if(role != null)
+            if (role != null)
             {
                 var result = await _roleManager.DeleteAsync(role);
                 if (result.Succeeded)
                 {
-                    RedirectToAction("RoleManagement", _roleManager.Roles);
+                    return RedirectToAction("RoleManagement", _roleManager.Roles);
                 }
-                ModelState.AddModelError("", "Something borked while deleting.");
+                ModelState.AddModelError("", "Something went wrong while deleting this role.");
             }
             else
             {
-                ModelState.AddModelError("", "This role can not be found.");
+                ModelState.AddModelError("", "This role can't be found.");
             }
-
             return View("RoleManagement", _roleManager.Roles);
         }
 
+        //Users in roles
 
-
-        // Users in roles
-
-        //Get
         public async Task<IActionResult> AddUserToRole(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 
             if (role == null)
+            {
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
@@ -265,7 +261,6 @@ namespace ThePieShop.Controllers
             return View(addUserToRoleViewModel);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
         {
@@ -279,7 +274,7 @@ namespace ThePieShop.Controllers
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
             }
 
-            foreach (IdentityError error in result.Errors)
+            foreach (IdentityError error in result.Errors)s
             {
                 ModelState.AddModelError("", error.Description);
             }
@@ -287,13 +282,14 @@ namespace ThePieShop.Controllers
             return View(userRoleViewModel);
         }
 
-
         public async Task<IActionResult> DeleteUserFromRole(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 
             if (role == null)
+            {
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
