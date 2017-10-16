@@ -10,7 +10,7 @@ using ThePieShop.Models;
 
 namespace ThePieShop.Controllers
 {
-    //[Authorize(Roles ="Administrators")]
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
@@ -19,6 +19,7 @@ namespace ThePieShop.Controllers
         public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET
@@ -176,7 +177,9 @@ namespace ThePieShop.Controllers
             var role = await _roleManager.FindByIdAsync(id);
 
             if (role == null)
+            {
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
+            }
 
             var editRoleViewModel = new EditRoleViewModel
             {
@@ -274,7 +277,7 @@ namespace ThePieShop.Controllers
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
             }
 
-            foreach (IdentityError error in result.Errors)s
+            foreach (IdentityError error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }

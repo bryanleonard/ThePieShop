@@ -1,5 +1,7 @@
 ﻿@model ThePieShop.ViewModels.AddUserViewModel
-
+@{
+    ViewData["Title"] = "Admin";
+}
 <h2>Create a new user</h2>
 
 <form asp-controller="Admin" asp-action="AddUser" method="post" class="form-horizontal" role="form">
