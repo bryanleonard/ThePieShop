@@ -10,13 +10,13 @@ using ThePieShop.Models;
 
 namespace ThePieShop.Controllers
 {
-    [Authorize(Roles ="Administrators")]
+    //[Authorize(Roles ="Administrators")]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityUser> roleManager)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
         }
