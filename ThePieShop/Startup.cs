@@ -85,6 +85,7 @@ namespace ThePieShop
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireClaim("Administrator"));
                 options.AddPolicy("DeletePie", policy => policy.RequireClaim("Delete Pie"));
                 options.AddPolicy("AdPie", policy => policy.RequireClaim("Add Pie"));
+                options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
             });
         }
 

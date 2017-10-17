@@ -30,6 +30,7 @@ namespace ThePieShop.Controllers
         //POST
         [Authorize]
         [HttpPost]
+        [Authorize(Policy = "MinimumOrderAge")]
         public IActionResult Checkout(Order order)
         {
             var items = _shoppingCart.GetShoppingCartItems();
