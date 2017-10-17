@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ThePieShop.Data;
 using ThePieShop.Models;
 using ThePieShop.Services;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace ThePieShop
 {
@@ -77,7 +78,6 @@ namespace ThePieShop
 
             services.AddRouting(options => options.LowercaseUrls = true); //lowercase URLs, FTW
 
-
             // register the policy on the Controller with [Authorize(Policy = "DeletePie")]
             // can be stacked with roles and other policies
             services.AddAuthorization(options =>
@@ -86,6 +86,16 @@ namespace ThePieShop
                 options.AddPolicy("DeletePie", policy => policy.RequireClaim("Delete Pie"));
                 options.AddPolicy("AdPie", policy => policy.RequireClaim("Add Pie"));
                 options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18)));
+            });
+
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                //googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                //googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?tabs=aspnetcore2x
+                googleOptions.ClientId = "480025973479-gi12jddt7g9e69okpugv87hfgs38su5e.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "-bILs4fpQyU6mzqa17LYjRj1";
             });
         }
 
