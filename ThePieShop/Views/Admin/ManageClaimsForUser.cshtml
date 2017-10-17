@@ -1,0 +1,22 @@
+﻿@model ThePieShop.ViewModels.ClaimsManagementViewModel
+@{
+    ViewData["Title"] = "Admin";
+}
+<h2>Manage claims for user</h2>
+
+<form asp-controller="Admin" asp-action="ManageClaimsForUser">
+    <div class="form-group">
+        <input type="text" name="userId" value="@Model.UserId" class="form-control" /><br />
+        <select asp-for="ClaimId"
+                asp-items="@(new SelectList(Model.AllClaimsList))" class="form-control">
+            <option>Please select a claim</option>
+        </select>
+    </div>
+    <p>
+        <input class="btn btn-primary" value="Add claim for user" type="submit" />
+    </p>
+</form>
+
+<p>
+    <a asp-action="UserManagement" class="btn btn-primary">Done</a>
+</p>

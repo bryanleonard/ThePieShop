@@ -76,7 +76,16 @@ namespace ThePieShop
             });
 
             services.AddRouting(options => options.LowercaseUrls = true); //lowercase URLs, FTW
-            
+
+
+            // register the policy on the Controller with [Authorize(Policy = "DeletePie")]
+            // can be stacked with roles and other policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireClaim("Administrator"));
+                options.AddPolicy("DeletePie", policy => policy.RequireClaim("Delete Pie"));
+                options.AddPolicy("AdPie", policy => policy.RequireClaim("Add Pie"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

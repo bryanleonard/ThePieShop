@@ -1,6 +1,6 @@
 ﻿@model ThePieShop.ViewModels.EditUserViewModel
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Contact";
 }
 <h2>Edit user</h2>
 
@@ -41,3 +41,15 @@
     </div>
 </form>
 
+<h3>Claims for this user</h3>
+<ul>
+    @foreach (var claim in Model.UserClaims)
+    {
+        <li>
+            @claim
+        </li>
+    }
+</ul>
+
+
+<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage claims for this user</a>

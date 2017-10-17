@@ -8,7 +8,7 @@ namespace ThePieShop.ViewModels
 {
     public class EditUserViewModel
     {
-         public string Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Please enter the user name")]
         [Display(Name = "User name")]
@@ -16,6 +16,8 @@ namespace ThePieShop.ViewModels
 
         [Required(ErrorMessage = "Please enter the user email")]
         public string Email { get; set; }
+
+        public List<string> UserClaims { get; set; }
 
         [Required(ErrorMessage = "Please enter the birth date")]
         [Display(Name = "Birth date")]
@@ -26,8 +28,5 @@ namespace ThePieShop.ViewModels
         public string City { get; set; }
 
         public string Country { get; set; }
-
-        //TODO check this if role management is wonky.
-        public List<string> UserClaims { get; set; }
     }
 }

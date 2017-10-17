@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ThePieShop.Models
 {
-    public class MockPieRepository: IPieRepository
+    public class MockPieRepository : IPieRepository
     {
         private readonly ICategoryRepository _categoryRepository = new MockCategoryRepository();
 
@@ -25,6 +25,16 @@ namespace ThePieShop.Models
 
         public IEnumerable<Pie> PiesOfTheWeek { get; }
         public Pie GetPieById(int pieId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdatePie(Pie pie)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CreatePie(Pie pie)
         {
             throw new System.NotImplementedException();
         }

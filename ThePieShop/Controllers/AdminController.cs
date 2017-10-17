@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using ThePieShop.ViewModels;
 using ThePieShop.Models;
 
+
 namespace ThePieShop.Controllers
 {
     [Authorize(Roles = "Administrators")]
@@ -25,7 +26,8 @@ namespace ThePieShop.Controllers
         // GET
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("UserManagement", _userManager.Users);
+                ///return View();
         }
 
         public IActionResult UserManagement()
@@ -72,14 +74,12 @@ namespace ThePieShop.Controllers
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
-            {
                 return RedirectToAction("UserManagement", _userManager.Users);
-            }
 
-            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country };
+            var claims = await _userManager.GetClaimsAsync(user);
+            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
 
             return View(vm);
-
         }
 
         [HttpPost]
@@ -326,6 +326,47 @@ namespace ThePieShop.Controllers
             }
 
             return View(userRoleViewModel);
+        }
+
+
+
+
+
+        //Claims
+
+        public async Task<IActionResult> ManageClaimsForUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return RedirectToAction("UserManagement", _userManager.Users);
+
+            var claimsManagementViewModel = new ClaimsManagementViewModel { UserId = user.Id, AllClaimsList = Data.PieShopClaimTypes.ClaimsList };
+
+            return View(claimsManagementViewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ManageClaimsForUser(ClaimsManagementViewModel claimsManagementViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(claimsManagementViewModel.UserId);
+
+            if (user == null)
+                return RedirectToAction("UserManagement", _userManager.Users);
+
+            IdentityUserClaim<string> claim =
+                new IdentityUserClaim<string> { ClaimType = claimsManagementViewModel.ClaimId, ClaimValue = claimsManagementViewModel.ClaimId, UserId = claimsManagementViewModel.UserId};
+
+            user.Claims.Add(claim);
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+                return RedirectToAction("UserManagement", _userManager.Users);
+
+            ModelState.AddModelError("", "User not updated, something went wrong.");
+
+            return View(claimsManagementViewModel);
         }
     }
 }
