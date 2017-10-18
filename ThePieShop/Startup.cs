@@ -51,6 +51,7 @@ namespace ThePieShop
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IPieRepository, PieRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IPieReviewRepository, PieReviewRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

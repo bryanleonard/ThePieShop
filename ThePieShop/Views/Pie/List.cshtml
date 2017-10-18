@@ -1,12 +1,8 @@
 ﻿@*
     // Version 1, without AJAX
     @model pieshop.ViewModels.PiesListViewModel
-    @{
-        ViewData["Title"] = "Our Pies";
-    }
 
     <h2>@Model.CurrentCategory</h2>
-
 
     @foreach (var pie in Model.Pies)
     {
@@ -18,6 +14,8 @@
 }
 
 @model ThePieShop.ViewModels.PiesListViewModel
+
+
 <h2>@Model.CurrentCategory</h2>
 @foreach (var pie in Model.Pies)
 {
@@ -28,7 +26,6 @@
 
 
 @*<div id="pieDiv"></div>
-
 
 @section scripts {
     <script>

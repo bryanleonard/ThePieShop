@@ -215,6 +215,10 @@ navbar .navbar-inverse .navbar-toggle {
         max-height: 125px;
     }
 
+    .thumbnail-detail img {
+        max-height: unset;
+    }
+
     .nav-logo {
         display: none;
     }
