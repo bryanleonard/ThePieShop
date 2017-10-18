@@ -13,6 +13,7 @@ using ThePieShop.Data;
 using ThePieShop.Models;
 using ThePieShop.Services;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ThePieShop
 {
@@ -54,6 +55,17 @@ namespace ThePieShop
             services.AddTransient<IPieReviewRepository, PieReviewRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            //specify options for the anti forgery here
+            //this is deprecated
+            //services.AddAntiforgery(opts => { opts.RequireSsl = true; });
+
+            //anti forgery as global filter
+            //otherwise, use [ValidateAntiForgeryToken] in the Controller for page
+            services.AddMvc(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
 
             // Creates an object associated with a request (a shopping cart per user)
             // Creates the shopping cart when user visits.
