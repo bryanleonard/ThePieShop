@@ -90,7 +90,8 @@ namespace ThePieShop.Controllers
             //_pieReviewRepository.AddPieReview(new PieReview() { Pie = pie, Review = review });
             string encodedReview = _htmlEncoder.Encode(review);
             _pieReviewRepository.AddPieReview(new PieReview() { Pie = pie, Review = encodedReview });
-            
+
+            ModelState.Clear(); // just emptying out the review form field.
 
             return View(new PieDetailViewModel() { Pie = pie });
         }

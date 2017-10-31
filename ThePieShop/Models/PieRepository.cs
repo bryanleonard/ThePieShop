@@ -37,7 +37,8 @@ namespace ThePieShop.Models
         public Pie GetPieById(int pieId)
         {
             //get pie by ID, duh
-            return _appDbContext.Pies.FirstOrDefault(p => p.PieId == pieId);
+            //return _appDbContext.Pies.FirstOrDefault(p => p.PieId == pieId);
+            return _appDbContext.Pies.Include(p => p.PieReviews).FirstOrDefault(p => p.PieId == pieId);
         }
 
         public void UpdatePie(Pie pie)

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using ThePieShop.Data;
 
@@ -414,7 +416,7 @@ namespace ThePieShop.Data.Migrations
             modelBuilder.Entity("ThePieShop.Models.PieReview", b =>
                 {
                     b.HasOne("ThePieShop.Models.Pie", "Pie")
-                        .WithMany()
+                        .WithMany("PieReviews")
                         .HasForeignKey("PieId");
                 });
 
