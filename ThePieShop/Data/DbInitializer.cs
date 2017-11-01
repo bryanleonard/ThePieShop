@@ -44,7 +44,7 @@ namespace ThePieShop.Data
                         ImageUrl = "/images/pies/blueberry-cheesecake.jpg",
                         InStock = true,
                         IsPieOfTheWeek = false,
-                        ImageThumbnailUrl = "/images/pies/blueberry-cheesecake.jpgg",
+                        ImageThumbnailUrl = "/images/pies/blueberry-cheesecake.jpg",
                         AllergyInformation = ""
                     },
                     new Pie
@@ -57,7 +57,7 @@ namespace ThePieShop.Data
                         ImageUrl = "/images/pies/cheesecake.jpg",
                         InStock = true,
                         IsPieOfTheWeek = false,
-                        ImageThumbnailUrl = "/images/pies/cheesecakesmall.jpg",
+                        ImageThumbnailUrl = "/images/pies/cheesecake.jpg",
                         AllergyInformation = ""
                     },
                     new Pie
