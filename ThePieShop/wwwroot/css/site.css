@@ -29,6 +29,10 @@ h3 {
     border-radius: 4px;
 }
 
+.navbar.navbar-right {
+     margin-right: 0 !important;
+}
+
 .caption {
     height: 130px;
     overflow: hidden;

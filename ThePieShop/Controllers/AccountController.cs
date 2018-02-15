@@ -16,7 +16,7 @@ using ThePieShop.Services;
 
 namespace ThePieShop.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {

@@ -13,10 +13,10 @@
 else
 {
     <tr>
-        <th>Pie ID</th>
-        <th>Image</th>
+        <th class="text-nowrap">Pie ID</th>
         <th>Name</th>
-        <th>In stock</th>
+        <th>Image</th>
+        <th class="text-nowrap">In stock</th>
         <th>Price</th>
         <th>Actions</th>
     </tr>
@@ -24,14 +24,14 @@ else
     {
         <tr>
             <td>@pie.PieId</td>
-            <td><img src="@pie.ImageThumbnailUrl" /></td>
             <td>@pie.Name</td>
-            <td><input type="checkbox" asp-for="@pie.InStock" />
+            <td><img src="@pie.ImageThumbnailUrl" style="width: 50%;" /></td>
+            <td class="text-center"><input type="checkbox" asp-for="@pie.InStock" />
             <td>@pie.Price</td>
             <td>
                 <form asp-action="DeletePie" asp-route-pieId="@pie.PieId" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="EditPie" asp-route-pieId="@pie.PieId">Edit</a>
-                    <button type="submit" onclick="return confirm('Do you really want to delete this pie?');" class="btn btn-sm btn-danger">
+                    <a class="btn btn-sm btn-block btn-primary" style="margin-bottom: .5rem" asp-action="EditPie" asp-route-pieId="@pie.PieId">Edit</a>
+                    <button type="submit" onclick="return confirm('Do you really want to delete this pie?');" class="btn btn-sm btn-block btn-primary">
                         Delete
                     </button>
                 </form>

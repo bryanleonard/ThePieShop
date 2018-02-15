@@ -10,7 +10,8 @@ namespace ThePieShop.ViewComponents
     {
         public IViewComponentResult Invoke()
         {
-            var menuItems = new List<AdminMenuItem> { new AdminMenuItem()
+            var menuItems = new List<AdminMenuItem> {
+                new AdminMenuItem()
                 {
                     DisplayValue = "User management",
                     ActionValue = "UserManagement"
@@ -20,7 +21,9 @@ namespace ThePieShop.ViewComponents
                 {
                     DisplayValue = "Role management",
                     ActionValue = "RoleManagement"
-                }};
+                }
+
+            };
 
             return View(menuItems);
         }
